@@ -3,101 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Управление Заказами</title>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #eaeaea;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background: linear-gradient(to right, #ff6a00, #ee0979);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-bottom: 5px solid #c70039;
-        }
-
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        h2 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-
-        .form-section {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            transition: transform 0.3s;
-        }
-
-        .form-section:hover {
-            transform: scale(1.02);
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 10px 15px;
-            background-color: #ff6a00;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #ee0979;
-            transform: translateY(-2px);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #888;
-            font-size: 14px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Управление Заказами</h1>
-    </header>
-    <main>
-        <section class="form-section">
-            <h2>Изменение Заказа</h2>
-            <form action="/change-data" method="post">
-                <input type="hidden" name="csrf_token" value="{{ request.session.get('csrf_token', 'token') }}">
-                <button type="submit" class="btn">Обновить Заказ</button>
-            </form>
-            <h3>Текущее количество: <span id="current-value">{{ count }}</span></h3>
-        </section>
-
-        <section class="form-section">
-            <h2>Увеличение Запасов</h2>
-            <form action="/increment" method="post">
-                <butto<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
     <title>Онлайн Магазин</title>
 </head>
@@ -105,13 +10,13 @@
     <header>
         <h1>Онлайн Магазин</h1>
         {% if request.session.get('user') %}
-            <p>Добро пожаловать, {{ request.session.get('user') }}!</p>
-            <form action="/logout" method="post">
+            <p>Привет, {{ request.session.get('user') }}!</p>
+            <form action="/auth/logout" method="post">
                 <button type="submit" class="btn">Выйти</button>
             </form>
         {% else %}
-            <a href="/register" class="btn">Регистрация</a>
-            <a href="/login" class="btn">Вход</a>
+            <a href="/auth/register" class="btn">Регистрация</a>
+            <a href="/auth/login" class="btn">Вход</a>
         {% endif %}
     </header>
 
@@ -151,16 +56,6 @@
 
     <footer>
         <p>&copy; 2024 Онлайн Магазин</p>
-    </footer>
-</body>
-</html>
-n type="submit" class="btn">Увеличить Запасы</button>
-            </form>
-            <h3>Текущие Запасы: <span id="race-condition-count">{{ count }}</span></h3>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Система Управления Заказами</p>
     </footer>
 </body>
 </html>
