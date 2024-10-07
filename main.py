@@ -28,11 +28,9 @@ templates = Jinja2Templates(directory="templates")
 # Хранилище данных
 data_store = {"count": 0}
 
-
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "count": data_store["count"]})
-
 
 @app.post("/change-data")
 async def change_data(csrf_token: Optional[str] = Form(None)):
@@ -43,14 +41,12 @@ async def change_data(csrf_token: Optional[str] = Form(None)):
     data_store["count"] += 1
     return {"message": "Данные изменены", "new_count": data_store["count"]}
 
-
 @app.post("/increment")
 async def increment():
     # Имитация гонки, запускаем несколько асинхронных задач
     tasks = [increment_count() for _ in range(2)]
     await asyncio.gather(*tasks)
     return {"message": "Запущено изменение данных (Race Condition)"}
-
 
 async def increment_count():
     await asyncio.sleep(1)  # Имитация задержки

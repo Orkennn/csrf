@@ -1,15 +1,17 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #eaeaea;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background: linear-gradient(to right, #4a90e2, #9013fe);
+    background: linear-gradient(to right, #ff6a00, #ee0979);
     color: white;
     padding: 20px;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-bottom: 5px solid #c70039;
 }
 
 main {
@@ -18,37 +20,50 @@ main {
     padding: 20px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
     color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 24px;
 }
 
 .form-section {
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
+    transition: transform 0.3s;
+}
+
+.form-section:hover {
+    transform: scale(1.02);
 }
 
 .btn {
+    display: block;
+    width: 100%;
     padding: 10px 15px;
-    background-color: #4a90e2;
+    background-color: #ff6a00;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn:hover {
-    background-color: #357ab8;
+    background-color: #ee0979;
+    transform: translateY(-2px);
 }
 
 footer {
     text-align: center;
     margin-top: 20px;
     color: #888;
+    font-size: 14px;
 }
