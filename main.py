@@ -52,7 +52,7 @@ async def increment_count():
     await asyncio.sleep(1)  # Имитация задержки
     data_store["count"] += 1
 
-print("test")
+print("test1")
 
 if __name__ == "__main__":
     import uvicorn
