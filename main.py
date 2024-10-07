@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from typing import Optional
 import asyncio
 
@@ -20,33 +21,17 @@ app.add_middleware(
 # Добавляем middleware для работы с сессиями
 app.add_middleware(SessionMiddleware, secret_key="your_secret_key")
 
+# Укажите директорию для статических файлов и шаблонов
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
 # Хранилище данных
 data_store = {"count": 0}
 
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    return f"""
-    <html>
-        <head>
-            <title>CSRF и Race Conditions Test</title>
-        </head>
-        <body>
-            <h1>CSRF Attack Test</h1>
-            <form action="/change-data" method="post">
-                <input type="hidden" name="csrf_token" value="{request.session.get('csrf_token', 'token')}">
-                <button type="submit">Изменить данные</button>
-            </form>
-            <h2>Текущее значение: {data_store["count"]}</h2>
-
-            <h1>Race Condition Test</h1>
-            <form action="/increment" method="post">
-                <button type="submit">Увеличить счетчик (Race Condition)</button>
-            </form>
-            <h2>Счетчик: {data_store["count"]}</h2>
-        </body>
-    </html>
-    """
+    return templates.TemplateResponse("index.html", {"request": request, "count": data_store["count"]})
 
 
 @app.post("/change-data")

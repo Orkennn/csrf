@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+    <title>Тест CSRF и Race Conditions</title>
+</head>
+<body>
+    <header>
+        <h1>Тест CSRF и Race Conditions</h1>
+    </header>
+    <main>
+        <section class="form-section">
+            <h2>Тест CSRF</h2>
+            <form action="/change-data" method="post">
+                <input type="hidden" name="csrf_token" value="{{ request.session.get('csrf_token', 'token') }}">
+                <button type="submit" class="btn">Изменить данные</button>
+            </form>
+            <h3>Текущее значение: <span id="current-value">{{ count }}</span></h3>
+        </section>
+
+        <section class="form-section">
+            <h2>Тест Race Condition</h2>
+            <form action="/increment" method="post">
+                <button type="submit" class="btn">Увеличить счетчик (Race Condition)</button>
+            </form>
+            <h3>Счетчик: <span id="race-condition-count">{{ count }}</span></h3>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Тест приложения FastAPI</p>
+    </footer>
+</body>
+</html>
