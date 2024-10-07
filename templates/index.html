@@ -93,7 +93,68 @@
         <section class="form-section">
             <h2>Увеличение Запасов</h2>
             <form action="/increment" method="post">
-                <button type="submit" class="btn">Увеличить Запасы</button>
+                <butto<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+    <title>Онлайн Магазин</title>
+</head>
+<body>
+    <header>
+        <h1>Онлайн Магазин</h1>
+        {% if request.session.get('user') %}
+            <p>Добро пожаловать, {{ request.session.get('user') }}!</p>
+            <form action="/logout" method="post">
+                <button type="submit" class="btn">Выйти</button>
+            </form>
+        {% else %}
+            <a href="/register" class="btn">Регистрация</a>
+            <a href="/login" class="btn">Вход</a>
+        {% endif %}
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Товары</h2>
+            <ul>
+                {% for product in products %}
+                    <li>
+                        <h3>{{ product.name }}</h3>
+                        <p>Цена: {{ product.price }} ₽</p>
+                        <p>В наличии: {{ product.quantity }}</p>
+                        {% if request.session.get('user') %}
+                            <form action="/cart/add" method="post">
+                                <input type="hidden" name="product_id" value="{{ product.id }}">
+                                <label for="quantity_{{ product.id }}">Количество:</label>
+                                <input type="number" name="quantity" id="quantity_{{ product.id }}" min="1" max="{{ product.quantity }}" value="1">
+                                <button type="submit" class="btn">Добавить в корзину</button>
+                            </form>
+                        {% else %}
+                            <p><em>Войдите, чтобы добавить в корзину</em></p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        {% if request.session.get('user') %}
+        <section class="form-section">
+            <h2>Корзина</h2>
+            <form action="/cart/checkout" method="post">
+                <button type="submit" class="btn">Оформить заказ</button>
+            </form>
+        </section>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Онлайн Магазин</p>
+    </footer>
+</body>
+</html>
+n type="submit" class="btn">Увеличить Запасы</button>
             </form>
             <h3>Текущие Запасы: <span id="race-condition-count">{{ count }}</span></h3>
         </section>
